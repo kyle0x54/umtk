@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def normalize_grayscale(src):
+def normalize_grayscale(src: np.ndarray):
     """ Rescale image intensity.
 
     Rescale an grayscale image's intensity range to [0.0, 1.0].
@@ -10,23 +10,24 @@ def normalize_grayscale(src):
         src (ndarray): image to be intensity rescaled.
 
     Return:
-        (ndarray of float32 type): intensity rescaled image.
+        (ndarray of type np.float32): intensity rescaled image.
     """
     epsilon = 0.00001
 
-    src = src.astype(np.float32)
+    src_float = src.astype(np.float32)
 
-    min_val, max_val = np.min(src), np.max(src)
+    min_val, max_val = np.min(src_float), np.max(src_float)
     if max_val - min_val < epsilon:
         max_val += epsilon
 
-    return (src - min_val) / (max_val - min_val)
+    dst = (src_float - min_val) / (max_val - min_val)
+    return dst
 
 
 def imadjust_grayscale(
     im: np.ndarray,
     low_pct: float = 0.01,
-    high_pct: float = 0.99
+    high_pct: float = 0.99,
 ):
     """ Increase contrast of a grayscale image.
 
@@ -35,11 +36,11 @@ def imadjust_grayscale(
 
     Args:
         im (np.ndarray): image to be enhanced.
-        low_pct (float): mean values.
-        high_pct (float): standard deviations.
+        low_pct (float): low bound.
+        high_pct (float): high bound.
 
     Return:
-        (np.ndarray): the enhanced image.
+        (ndarray of type np.float32): the enhanced image.
     """
     assert 0.0 <= low_pct < high_pct <= 1.0
 
