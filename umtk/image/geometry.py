@@ -15,26 +15,32 @@ def xflip(img):
     return np.ascontiguousarray(img[:, :, ::-1])
 
 
-def resize(src, depth, height, width, device="cpu"):
+def resize(src, size, device="cpu", to_float=False, mode="trilinear"):
     """ Resize an image to the given size.
 
     Args:
-        img (ndarray): the given image.
-        depth (int): target image depth in pixel.
-        height (int): target image height in pixel.
-        width (int): target image width in pixel.
+        src (ndarray): the given image.
+        size (tuple[int]): image size (in pixel) in DHW order.
         device (int): computation device, support "cpu" and "cuda".
-            e.g. "cpu", "cuda", "cuda:0", "cuda:1"
+            e.g. "cpu", "cuda", "cuda:0", "cuda:1".
+        to_float (bool): whether to convert the output image to float32.
+        mode (str): interpolation mode, support "nearest" and "trilinear".
 
     Returns:
         (ndarray): the resized image.
     """
-    t_img = torch.from_numpy(src)
+    assert mode in ("nearest", "trilinear")
+    t_img = torch.from_numpy(src.astype(np.float32))
     t_img = t_img.unsqueeze(0).unsqueeze(0)
     t_img.to(device)
-    t_img = F.interpolate(t_img, size=(depth, height, width), mode="trilinear")
+    t_img = F.interpolate(
+        t_img,
+        size=size,
+        mode=mode,
+        align_corners=None if mode == "nearest" else False
+    )
     dst = t_img.cpu().numpy()[0, 0, ...]
-    return dst
+    return dst if to_float else dst.astype(src.dtype)
 
 
 def crop(img, z, y, x, d, h, w):
