@@ -14,6 +14,7 @@ VERSION = None
 REQUIRED = [
     'matplotlib',
     'natsort',
+    'nibabel',
     'numpy',
     'opencv-python',
     'pydicom',
