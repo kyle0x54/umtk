@@ -16,9 +16,9 @@ REQUIRED = [
     'natsort',
     'numpy',
     'opencv-python',
-    'pandas',
     'pydicom',
     'SimpleITK',
+    'torch',
     'tqdm',
 ]
 
