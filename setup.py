@@ -12,6 +12,7 @@ VERSION = None
 
 
 REQUIRED = [
+    'cupy-cuda102',
     'matplotlib',
     'natsort',
     'nibabel',
