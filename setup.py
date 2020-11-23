@@ -14,11 +14,8 @@ VERSION = None
 REQUIRED = [
     'cupy-cuda102',
     'matplotlib',
-    'natsort',
     'nibabel',
     'numpy',
-    'opencv-python',
-    'pydicom',
     'SimpleITK',
     'torch',
     'tqdm',
