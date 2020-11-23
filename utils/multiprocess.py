@@ -6,7 +6,7 @@ from tqdm import tqdm
 def tqdm_imap_unordered(
     func: Callable[[Any], Any],
     args: List[Any],
-    n_processes: Optional[int]
+    n_processes: Optional[int] = None
 ) -> List[Any]:
     """ Parallel processing with a progress bar.
 

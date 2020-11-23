@@ -34,7 +34,7 @@ def normalize_adaptive(src: np.ndarray) -> np.ndarray:
     Rescale an grayscale image's intensity range to [0.0, 1.0].
 
     Args:
-        src (ndarray): image to be intensity rescaled.
+        src (np.ndarray): image to be intensity rescaled.
 
     Return:
         (ndarray of type np.float32): intensity rescaled image.
@@ -62,7 +62,7 @@ def normalize_fixed(
     [0.0, 1.0]. Intensity value out of [min_, max_] will be clipped.
 
     Args:
-        src (ndarray): image to be intensity rescaled.
+        src (np.ndarray): image to be intensity rescaled.
         in_min (float): input min value for intensity mapping
         in_max (float): input max value for intensity mapping
 
