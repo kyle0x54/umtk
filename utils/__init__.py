@@ -1,5 +1,10 @@
 # flake8: noqa
 
+from .encryption import (
+    encrypt,
+    decrypt,
+    decrypt_to_file_object
+)
 from .ftp import FTP
 from .md5 import compute_md5_str
 from .multiprocess import tqdm_imap_unordered

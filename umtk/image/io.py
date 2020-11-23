@@ -9,7 +9,7 @@ def read_itk(
     read_header: bool = False,
     reorient: bool = False
 ) -> Union[np.ndarray, Tuple[np.ndarray, Dict[str, Any]]]:
-    """ Read an image.
+    """ Read an itk format image.
 
     Args:
         path (str or Path): itk image file path.
