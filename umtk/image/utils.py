@@ -16,11 +16,11 @@ def isdicom(path: Union[str, Path]) -> bool:
         return False
 
     # read preamble and magic code
-    with open(path, 'rb') as f:
+    with open(path, "rb") as f:
         header = f.read(132)
 
     if not header:
         return False
 
-    # magic code of a dicom file should be 'DICM'
-    return False if header[128:132] != b'DICM' else True
+    # magic code of a dicom file should be "DICM"
+    return False if header[128:132] != b"DICM" else True

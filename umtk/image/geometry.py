@@ -50,10 +50,20 @@ def resize(
 
 def crop(
     img: np.ndarray,
-    point: Tuple[int, int, int],
+    start_point: Tuple[int, int, int],
     crop_size: Tuple[int, int, int]
 ) -> np.ndarray:
-    z, y, x = point
+    """ Crop a part of the input image.
+
+    Args:
+        img (np.ndarray): image to be cropped.
+        start_point (Tuple[int, int, int]): start point of the crop.
+        crop_size (Tuple[int, int, int]): size of the crop.
+
+    Returns:
+
+    """
+    z, y, x = start_point
     d, h, w = crop_size
     return img[z:z+d, y:y+h, x:x+w]
 

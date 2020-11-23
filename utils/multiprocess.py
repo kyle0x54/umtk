@@ -39,13 +39,13 @@ def tqdm_imap_unordered(
 
 # Multiprocessing cannot be tested in pytest.
 # We can test it here instead.
-if __name__ == '__main__':
+if __name__ == "__main__":
     def add(a, b, c):
         return a + b + c
 
     first = [str(i) for i in range(10)]
-    second = '_m'
-    third = '.png'
+    second = "_m"
+    third = ".png"
 
     # single processor version
     result_sp = [add(i, second, third) for i in first]

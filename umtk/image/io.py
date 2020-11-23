@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Union, Tuple, Dict, Any
+from typing import Any, Dict, List, Tuple, Union
 import SimpleITK
 import numpy as np
 
@@ -18,7 +18,7 @@ def read_itk(
         reorient (bool): whether to standardize image orientation
     Returns:
         (numpy.ndarray): loaded image array.
-        (dict): dicom header dict containing 'spacing', 'orientation', 'origin'.
+        (dict): dicom header dict containing "spacing", "orientation", "origin".
     """
     image_itk = SimpleITK.ReadImage(path)
     image = SimpleITK.GetArrayFromImage(image_itk)
@@ -41,3 +41,11 @@ def read_itk(
         return image, header
     else:
         return image
+
+
+def read_dicoms(
+    paths: List[str],
+    read_header: bool = False,
+    reorient: bool = False
+) -> Union[np.ndarray, Tuple[np.ndarray, Dict[str, Any]]]:
+    pass

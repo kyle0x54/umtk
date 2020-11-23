@@ -8,12 +8,12 @@ class Timer:
     Example:
     >>> import time
     >>> import umtk
-    >>> with umtk.Timer(description='it takes {:.2f} seconds.'):
+    >>> with umtk.Timer(description="it takes {:.2f} seconds."):
     >>>     time.sleep(1)
     it takes 1.00 seconds.
     """
     def __init__(self, description: Optional[str]):
-        self.description = description if description else '{:.2f}'
+        self.description = description if description else "{:.2f}"
 
     def __enter__(self):
         self.t_start = time.time()
@@ -24,6 +24,6 @@ class Timer:
         print(self.description.format(self.t_end - self.t_start))
 
 
-if __name__ == '__main__':
-    with Timer(description='function takes {:.4f} seconds.'):
+if __name__ == "__main__":
+    with Timer(description="function takes {:.4f} seconds."):
         time.sleep(1)
