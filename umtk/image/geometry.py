@@ -25,15 +25,15 @@ def resize(
     """ Resize an image to the given size.
 
     Args:
-        src (np.ndarray): the given image.
-        size (tuple[int]): image size (in pixel) in DHW order.
-        device (int): computation device, support "cpu" and "cuda".
+        src: the given image.
+        size: image size (in pixel) in DHW order.
+        device: computation device, support "cpu" and "cuda".
             e.g. "cpu", "cuda", "cuda:0", "cuda:1".
-        to_float (bool): whether to convert the output image to float32.
-        mode (str): interpolation mode, support "nearest" and "trilinear".
+        to_float: whether to convert the output image to float32.
+        mode: interpolation mode, support "nearest" and "trilinear".
 
     Returns:
-        (np.ndarray): the resized image.
+        the resized image.
     """
     assert mode in ("nearest", "trilinear")
     tensor = torch.from_numpy(src.astype(np.float32))
@@ -56,9 +56,9 @@ def crop(
     """ Crop a part of the input image.
 
     Args:
-        img (np.ndarray): image to be cropped.
-        start_point (Tuple[int, int, int]): start point of the crop.
-        crop_size (Tuple[int, int, int]): size of the crop.
+        img: image to be cropped.
+        start_point: start point of the crop.
+        crop_size: size of the crop.
 
     Returns:
 
@@ -75,11 +75,11 @@ def center_crop(
     """ Crop the central part of an image.
 
     Args:
-        img (np.ndarray): image to be cropped.
-        crop_size (Tuple[int, int, int]): size of cropped image.
+        img: image to be cropped.
+        crop_size: size of cropped image.
 
     Return:
-        (np.ndarray): the cropped image.
+        the cropped image.
     """
     def get_center_crop_coords(d, h, w, cd, ch, cw):
         z1 = (d - cd) // 2

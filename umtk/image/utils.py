@@ -1,16 +1,17 @@
 import os
 from pathlib import Path
-from typing import Union
+from typing import Any, Dict, Union
+import numpy as np
 
 
 def isdicom(path: Union[str, Path]) -> bool:
     """ Judge whether a given file is a valid dicom.
 
     Args:
-        path(str or Path): given file path.
+        path: given file path.
 
     Returns:
-        (bool): True if given path is a valid dicom, otherwise False.
+        True if given path is a valid dicom, otherwise False.
     """
     if not os.path.isfile(path):
         return False
@@ -24,3 +25,10 @@ def isdicom(path: Union[str, Path]) -> bool:
 
     # magic code of a dicom file should be "DICM"
     return False if header[128:132] != b"DICM" else True
+
+
+def get_reorient_image(vtd: Dict[str, Any]) -> np.ndarray:
+    return np.flip(
+        vtd["image_zyx"],
+        np.where(vtd["direction_zyx"] < 0)[0]
+    )

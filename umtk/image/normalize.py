@@ -9,12 +9,12 @@ def normalize_mean_std(
     """ Normalize a tensor image with mean and standard deviation.
 
     Args:
-        img (np.ndarray): image to be normalized.
-        mean (float): mean.
-        std (float): standard deviation.
+        img: image to be normalized.
+        mean: mean.
+        std: standard deviation.
 
     Returns:
-        np.ndarray: normalized image.
+        normalized image of type np.float32.
     """
     mean = np.array(mean, dtype=np.float32)
     std = np.array(std, dtype=np.float32)
@@ -34,10 +34,10 @@ def normalize_adaptive(src: np.ndarray) -> np.ndarray:
     Rescale an grayscale image's intensity range to [0.0, 1.0].
 
     Args:
-        src (np.ndarray): image to be intensity rescaled.
+        src: image to be intensity rescaled.
 
     Return:
-        (ndarray of type np.float32): intensity rescaled image.
+        intensity rescaled image of type np.float32.
     """
     epsilon = 0.00001
 
@@ -62,12 +62,12 @@ def normalize_fixed(
     [0.0, 1.0]. Intensity value out of [min_, max_] will be clipped.
 
     Args:
-        src (np.ndarray): image to be intensity rescaled.
-        in_min (float): input min value for intensity mapping
-        in_max (float): input max value for intensity mapping
+        src: image to be intensity rescaled.
+        in_min: input min value for intensity mapping
+        in_max: input max value for intensity mapping
 
     Return:
-        (ndarray of type np.float32): intensity rescaled image.
+        intensity rescaled image of type np.float32.
     """
     assert in_min < in_max
 
@@ -91,12 +91,12 @@ def imadjust(
     values between low_in and high_in map to values between 0 and 1.
 
     Args:
-        src (np.ndarray): image to be enhanced.
-        low_pct (float): low bound.
-        high_pct (float): high bound.
+        src: image to be enhanced.
+        low_pct: low bound.
+        high_pct: high bound.
 
     Return:
-        (ndarray of type np.float32): the enhanced image.
+        the enhanced image of type np.float32.
     """
     low_thr, high_thr = np.percentile(src, (low_pct, high_pct))
     dst = np.clip(src, a_min=low_thr, a_max=high_thr)

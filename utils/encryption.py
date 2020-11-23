@@ -14,7 +14,7 @@ def encrypt(data, key, iv, save_path=None):
     """ Encrypt file or data.
 
     Args:
-        data (boyes or str): Data or a file path.
+        data (bytes or str): Data or a file path.
         key (str or bytes): The secret key to use in the symmetric cipher.
         iv (str or bytes): The initialization vector to use for encryption or
             decryption.
@@ -45,7 +45,7 @@ def decrypt(data, key, iv, save_path=None):
     """ Decrypt file or data.
 
     Args:
-        data (boyes or str): Data or a file path.
+        data (bytes or str): Data or a file path.
         key (str or bytes): The secret key to use in the symmetric cipher.
         iv (str or bytes): The initialization vector to use for encryption or
             decryption.
@@ -75,7 +75,7 @@ def decrypt_to_file_object(data, key, iv, save_path=None):
     """ Decrypt a file or data and convert to file object.
 
     Args:
-        data (boyes or str): Data or a file path.
+        data (bytes or str): Data or a file path.
         key (str or bytes): The secret key to use in the symmetric cipher.
         iv (str or bytes): The initialization vector to use for encryption or
             decryption.

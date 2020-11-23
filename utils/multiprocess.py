@@ -15,13 +15,13 @@ def tqdm_imap_unordered(
     check the processing progress.
 
     Args:
-        func (function obj): the function to be called.
-        args (list): the function arguments.
-        n_processes (None or int): number of processes to be utilized.
+        func: the function to be called.
+        args: the function arguments.
+        n_processes: number of processes to be utilized.
             If None, use all available processes
 
     Return:
-        (list): the results for different inputs.
+        the results for different inputs.
 
     N.B. The ordering of results is arbitrary.
     """
