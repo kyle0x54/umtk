@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Union
-import SimpleITK
+from typing import Any, Dict, Union
 import numpy as np
+import SimpleITK
+import umtk.error_handling as exc
 
 
 def _get_file_title(path: Union[str, Path]):
@@ -15,19 +16,22 @@ def _get_file_title(path: Union[str, Path]):
 
 def read_itk(
     path: Union[str, Path],
-    keep_itk_image: bool = False
 ) -> Dict[str, Any]:
     """ Read an itk format image.
 
     Args:
         path: itk image file path.
-        keep_itk_image: whether to return original itk image.
 
     Returns:
         dict containing volume data and dicom tags.
     """
-    image_itk = SimpleITK.ReadImage(str(path))
-    image = SimpleITK.GetArrayFromImage(image_itk)
+    try:
+        image_itk = SimpleITK.ReadImage(str(path))
+        image = SimpleITK.GetArrayFromImage(image_itk)
+    except Exception as e:
+        raise exc.ReadDicomDataError(
+            "Failed to read dicom data, file path=[{}]".format(path)
+        )
 
     d = image_itk.GetDirection()
     direction = np.round(np.array([d[8], d[4], d[0]]))
@@ -38,7 +42,7 @@ def read_itk(
         "series_id": _get_file_title(path),
         "instances": list(range(1, image.shape[0] + 1)),
 
-        "image_itk": image_itk if keep_itk_image else None,
+        "image_itk": image_itk,
         "image_zyx": image,
 
         "spacing_zyx": spacing,
@@ -59,19 +63,3 @@ def read_npz(path: Union[str, Path]):
     """
     vtd = dict(np.load(path))
     return vtd
-
-
-def read_dicoms(
-    paths: List[Union[str, Path]],
-    keep_itk_image: bool = False,
-) -> Dict[str, Any]:
-    """ Read an itk format image.
-
-    Args:
-        paths: dicom file path list.
-        keep_itk_image: whether to return original itk image.
-
-    Returns:
-        dict containing volume data and dicom tags.
-    """
-    pass

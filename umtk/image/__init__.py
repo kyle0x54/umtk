@@ -16,6 +16,7 @@ from .normalize import (
     normalize_adaptive,
     imadjust
 )
+from .read_dicoms import read_dicoms
 from .utils import isdicom
 
 __all__ = [k for k in globals().keys() if not k.startswith("_")]

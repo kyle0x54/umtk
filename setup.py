@@ -17,6 +17,7 @@ REQUIRED = [
     "nibabel",
     "numpy",
     "pycryptodome",
+    "pydicom",
     "SimpleITK",
     "torch",
     "tqdm",
