@@ -100,18 +100,18 @@ def _get_pixel_spacing(
     spacing_x, spacing_y = float(spacing_xy[0]), float(spacing_xy[1])
 
     spacing_zs = [
-        "%.2f" % (headers[i+1].ImagePositionPatient[2] -
-                  headers[i].ImagePositionPatient[2])
+        float("%.2f" % (headers[i+1].ImagePositionPatient[2] -
+                  headers[i].ImagePositionPatient[2]))
         for i in range(len(headers) - 1)
     ]
 
     spacing_zs, unique_counts = np.unique(spacing_zs, return_counts=True)
     if not allow_missing_slices:
-        if unique_counts != 1:
+        if len(spacing_zs) != 1:
             raise exc.InconsistentZPixelSpacingError(
                 "Inconsistent z-spacing, SeriesId=[{}], "
                 "Num-unique-zspacing=[{}], zspacing list={}".format(
-                    headers[0].SeriesInstanceUID, unique_counts, spacing_zs
+                    headers[0].SeriesInstanceUID, len(spacing_zs), spacing_zs
                 )
             )
         # TODO: check consistency between z-spacing and image-position?
@@ -125,7 +125,7 @@ def _get_pixel_spacing(
             )
         )
 
-    return np.array(spacing_z, spacing_y, spacing_x)
+    return np.array([spacing_z, spacing_y, spacing_x])
 
 
 def _get_origin(
@@ -151,15 +151,12 @@ def _get_direction(
 def read_dicoms(
     paths: List[Union[str, Path]],
     min_num_slices: int = 20,
-    validate_dicoms: bool = True,
     allow_missing_layers: bool = False
 ) -> Dict[str, Any]:
     """ Read an itk format image.
 
     Args:
         paths: dicom file path list.
-        validate_dicoms: If True, validate each input path,
-            exclude non-dicom files. Else, do nothing.
         min_num_slices: minimum number of instances allowed.
         allow_missing_layers: whether to allow input containing
             missing layers.
@@ -179,8 +176,7 @@ def read_dicoms(
     assert isinstance(paths, (list, tuple)) and len(paths) != 0
 
     # dicom validation
-    if validate_dicoms:
-        paths = [path for path in paths if isdicom(path)]
+    paths = [path for path in paths if isdicom(path)]
 
     # read dicom headers
     headers = _read_dicom_headers(paths)
