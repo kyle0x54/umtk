@@ -12,7 +12,7 @@ class Timer:
     >>>     time.sleep(1)
     it takes 1.00 seconds.
     """
-    def __init__(self, description: Optional[str]):
+    def __init__(self, description: Optional[str] = None):
         self.description = description if description else "{:.2f}"
 
     def __enter__(self):
