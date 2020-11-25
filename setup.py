@@ -13,6 +13,7 @@ VERSION = None
 
 REQUIRED = [
     "cupy-cuda102",
+    "Cython",
     "matplotlib",
     "nibabel",
     "numpy",
