@@ -2,9 +2,15 @@ dist: xenial
 sudo: false
 language: python
 cache: pip
+
+install:
+  - pip install .
+  - pip install pytest
 python:
-- '3.6'
-script: true
+  - '3.6'
+
+script: py.test ./tests
+
 deploy:
   provider: pypi
   user: kyle0x54
