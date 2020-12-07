@@ -72,14 +72,21 @@ def _get_instance_numbers(
             )
         numbers.append(number)
 
+    if len(numbers) > len(set(numbers)):
+        raise exc.ReduplicateInstanceNumberError(
+            "Reduplicate Instance number, SeriesId=[{}], num-reduplicate=[{}]".
+                format(headers[0].SeriesInstanceUID, len(numbers) > len(set(numbers))
+            )
+        )
+
     if not allow_missing_slices:
         start = min(numbers)
         end = max(numbers)
         ref_number_set = set(range(start, end))
         missing = ref_number_set - set(numbers)
         if len(missing) != 0:
-            raise exc.InconsistentInstanceNumberError(
-                "Inconsistant Instance number, SeriesId=[{}], "
+            raise exc.DiscontinuousInstanceNumberError(
+                "Discontinuous Instance number, SeriesId=[{}], "
                 "num-missing=[{}], Missing list={}".format(
                     headers[0].SeriesInstanceUID, len(missing), missing
                 )
