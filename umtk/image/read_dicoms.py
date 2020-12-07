@@ -1,11 +1,11 @@
 from functools import partial
 import math
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Union
 import numpy as np
 import pydicom
 import SimpleITK
-from .utils import isdicom
 import umtk.error_handling as exc
 
 
@@ -149,14 +149,14 @@ def _get_direction(
 
 
 def read_dicoms(
-    paths: List[Union[str, Path]],
+    paths: Union[List[Union[str, Path]], str, Path],
     min_num_slices: int = 20,
     allow_missing_layers: bool = False
 ) -> Dict[str, Any]:
     """ Read an itk format image.
 
     Args:
-        paths: dicom file path list.
+        paths: dicom file path list or directory containing dicoms.
         min_num_slices: minimum number of instances allowed.
         allow_missing_layers: whether to allow input containing
             missing layers.
@@ -172,11 +172,13 @@ def read_dicoms(
             - PixelSpacing
         Optional tags:
             - ImageOrientation [Default=(1, 1, 1)]
-    """
-    assert isinstance(paths, (list, tuple)) and len(paths) != 0
 
-    # dicom validation
-    paths = [path for path in paths if isdicom(path)]
+        Caller should take care of dicom validation (whether is valid dicom).
+    """
+    assert isinstance(paths, (list, tuple, str, Path))
+    if isinstance(paths, (str, Path)) and os.path.isdir(paths):
+        paths = SimpleITK.ImageSeriesReader.GetGDCMSeriesFileNames(paths)
+    assert len(paths) != 0
 
     # read dicom headers
     headers = _read_dicom_headers(paths)
