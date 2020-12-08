@@ -10,9 +10,10 @@ from .exceptions import (
     MissingInstanceNumberTagError,
     MultipleInputSeriesError,
     NotEnoughSlicesError,
-    InconsistentInstanceNumberError,
+    DiscontinuousInstanceNumberError,
     InconsistentZPixelSpacingError,
     IncorrectZPixelSpacingError,
+    ReduplicateInstanceNumberError,
 )
 
 __all__ = [k for k in globals().keys() if not k.startswith("_")]

@@ -58,10 +58,16 @@ class NotEnoughSlicesError(BaseError):
         self.error_code = BaseErrorCode.NOT_ENOUGH_SLICES_ERROR
 
 
-class InconsistentInstanceNumberError(BaseError):
+class ReduplicateInstanceNumberError(BaseError):
     def __init__(self, error_msg):
         super().__init__(error_msg)
-        self.error_code = BaseErrorCode.INCONSISTENT_INSTANCE_NUMBER_ERROR
+        self.error_code = BaseErrorCode.REDUPLICATE_INSTANCE_NUMBER_ERROR
+
+
+class DiscontinuousInstanceNumberError(BaseError):
+    def __init__(self, error_msg):
+        super().__init__(error_msg)
+        self.error_code = BaseErrorCode.DISCONTINUOUS_INSTANCE_NUMBER_ERROR
 
 
 class InconsistentZPixelSpacingError(BaseError):
