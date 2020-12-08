@@ -81,7 +81,7 @@ def _get_instance_numbers(
 
     if not allow_missing_slices:
         start = min(numbers)
-        end = max(numbers)
+        end = max(numbers) + 1
         ref_number_set = set(range(start, end))
         missing = ref_number_set - set(numbers)
         if len(missing) != 0:
