@@ -6,7 +6,7 @@ from .base_error_code import BaseErrorCode
 # ===================================================================
 class BaseError(Exception):
     def __init__(self, error_msg):
-        super().__init__(self)
+        super().__init__(error_msg)
         self.error_msg = error_msg
 
 
