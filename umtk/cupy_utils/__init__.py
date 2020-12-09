@@ -3,8 +3,8 @@
 from .convert import (
     tensor2cupy_gpu,
     cupy2tensor_gpu,
-    tensor2numpy,
-    cupy2numpy
+    cupy2numpy,
+    numpy2cupy
 )
 from .morphology import remove_small_objects_gpu
 

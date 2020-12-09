@@ -17,11 +17,15 @@ def cupy2tensor_gpu(cupy_array: cupy.ndarray) -> torch.Tensor:
     return from_dlpack(toDlpack(cupy_array))
 
 
-def tensor2numpy(torch_tensor: torch.Tensor) -> np.ndarray:
-    """ Convert a pytorch tensor to numpy array."""
-    return torch_tensor.cpu().numpy()
-
-
 def cupy2numpy(cupy_array: cupy.ndarray) -> np.ndarray:
     """ Convert a cupy array to numpy array."""
     return cupy.asnumpy(cupy_array)
+
+
+def numpy2cupy(
+    numpy_array: np.ndarray,
+    device_index: int = 0
+) -> cupy.ndarray:
+    """ Convert a numpy array to cupy array."""
+    with cupy.cuda.Device(device_index):
+        return cupy.asarray(numpy_array)
