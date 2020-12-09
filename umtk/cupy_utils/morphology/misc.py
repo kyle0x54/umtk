@@ -22,7 +22,7 @@ def remove_small_objects_gpu(
     """
     _check_dtype_supported(mask)
 
-    ccs = label(mask) if mask.dtype == bool else mask
+    ccs, _ = label(mask) if mask.dtype == bool else mask
     component_sizes = cupy.bincount(ccs.ravel())
     too_small = component_sizes < min_size
     too_small_mask = too_small[ccs]
