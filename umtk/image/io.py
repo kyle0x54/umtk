@@ -91,7 +91,7 @@ def __array_fill_in(unequal_length_arr):
         shapes = np.array(list(shapes))
         shape_max = np.max(shapes, axis=0)
     else:
-        shape_max = []
+        return unequal_length_arr
 
     equal_length_arr = []
     for arr in unequal_length_arr:
