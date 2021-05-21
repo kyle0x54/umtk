@@ -9,7 +9,7 @@ from .geometry import (
     crop,
     center_crop
 )
-from .io import read_itk
+from .io import read_itk, read_h5, write_h5
 from .normalize import (
     normalize_mean_std,
     normalize_fixed,
